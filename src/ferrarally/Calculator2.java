@@ -21,6 +21,7 @@ public class Calculator2 extends Application {
 	private int buttonWidth = 50;
 	private int buttonHeight = 50;
 	// variables for the calculation
+	private String und = "UNDEFINED";
 	private String a;
 	private String b;
 	private String op;
@@ -87,29 +88,29 @@ public class Calculator2 extends Application {
 		int i;
 		for (i = 0; i < n; i++) {
 			final int x = i;
-			if (buttonLabels[x] == "=") {
+			if (buttonLabels[x].equals("=")) {
 				buttonArray[x].setOnAction(new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent event) {
 						String result = "";
 						b = calcLabel.getText();
 
-						if (pastOp[0] == "1") {
+						if (pastOp[0].equals("1")) {
 							a = pastOp[1];
 							op = pastOp[2];
 							b = pastOp[3];
 						}
 
-						if (a != "UNDEFINED" && b != "UNDEFINED") {
-							if (op == "+") {
+						if (a != und && b != und) {
+							if (op.equals("+")) {
 								result = Float.toString(Float.parseFloat(a) + Float.parseFloat(b));
 							} else if (op == "-") {
 								result = Float.toString(Float.parseFloat(a) - Float.parseFloat(b));
-							} else if (op == "X") {
+							} else if (op.equals("X")) {
 								result = Float.toString(Float.parseFloat(a) * Float.parseFloat(b));
-							} else if (op == "/") {
+							} else if (op.equals("/")) {
 								float ter2 = Float.parseFloat(b);
 								if (ter2 == 0) {
-									result = "UNDEFINED";
+									result = und;
 								} else {
 									result = Float.toString(Float.parseFloat(a) / ter2);
 								}
@@ -128,13 +129,13 @@ public class Calculator2 extends Application {
 
 				});
 
-			} else if (buttonLabels[x] == "+" || buttonLabels[x] == "X" || buttonLabels[x] == "-"
-					|| buttonLabels[x] == "/") {
+			} else if (buttonLabels[x].equals("+") || buttonLabels[x].equals("X") || buttonLabels[x].equals("-")
+					|| buttonLabels[x].equals("/")) {
 				buttonArray[x].setOnAction(new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent event) {
 						String temp;
 						temp = calcLabel.getText();
-						if (temp != "UNDEFINED") {
+						if (temp != und) {
 							point = 0;
 							op = buttonLabels[x];
 							pastOp[0] = "0";
@@ -149,7 +150,7 @@ public class Calculator2 extends Application {
 						}
 					}
 				});
-			} else if (buttonLabels[x] == "C") {
+			} else if (buttonLabels[x].equals("C")) {
 				buttonArray[x].setOnAction(new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent event) {
 						op = "";
@@ -161,13 +162,13 @@ public class Calculator2 extends Application {
 						calcLabel.setText("0");
 					}
 				});
-			} else if (buttonLabels[x] == "+/-") {
+			} else if (buttonLabels[x].equals("+/-")) {
 				buttonArray[x].setOnAction(new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent event) {
 						String text = calcLabel.getText();
 						String temp;
 						String[] part;
-						if (text != "UNDEFINED") {
+						if (text != und) {
 							if (text != "0") {
 								if (text.charAt(0) == '-') {
 									part = text.split("-");
